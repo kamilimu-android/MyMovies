@@ -24,3 +24,16 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+buildTypes {
+    debug {
+        buildConfigField 'String', "MyMoviesApp_ApiKey", MyMoviesApp_ApiKey
+        resValue 'string', "MyMoviesApp_ApiKey", MyMoviesApp_ApiKey
+    }
+    release {
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        buildConfigField 'String', "MyMoviesApp_ApiKey", MyMoviesApp_ApiKey
+        resValue 'string', "MyMoviesApp_ApiKey", MyMoviesApp_ApiKey
+    }
+}
