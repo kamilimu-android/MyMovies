@@ -13,3 +13,4 @@
 /captures
 .externalNativeBuild
 .cxx
+/apiKey.properties
