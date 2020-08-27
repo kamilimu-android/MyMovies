@@ -1,4 +1,6 @@
-package com.kamilimuandoid.mymovies
+package com.kamilimuandoid.mymovies.model
+
+import com.kamilimuandoid.mymovies.model.Genre
 
 data class MovieDetails(
     val adult: Boolean,
