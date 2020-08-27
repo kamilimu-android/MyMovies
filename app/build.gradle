@@ -5,23 +5,38 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
 
+
+    def apikeyPropertiesFile = rootProject.file("apikey.properties")
+    def apikeyProperties = new Properties()
+    apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
+
     defaultConfig {
         applicationId "com.kamilimuandoid.mymovies"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        buildConfigField("String", "MyMoviesApp_ApiKey", apikeyProperties['MyMoviesApp_ApiKey'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', "MyMoviesApp_ApiKey", MyMoviesApp_ApiKey
+            resValue 'string', "MyMoviesApp_ApiKey", MyMoviesApp_ApiKey
+    }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
+
+
+                }
     }
-}
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])

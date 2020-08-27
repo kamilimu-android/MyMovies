@@ -13,4 +13,4 @@
 /captures
 .externalNativeBuild
 .cxx
-.MyMoviesApp_Apikey
+/.apikey.properties
