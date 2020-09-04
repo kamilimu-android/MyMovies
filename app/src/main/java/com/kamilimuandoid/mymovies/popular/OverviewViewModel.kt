@@ -1,5 +1,6 @@
-package com.kamilimuandoid.mymovies.overview
+package com.kamilimuandoid.mymovies.popular
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,7 +32,7 @@ class OverviewViewModel : ViewModel() {
         get() = _movies
 
     init {
-        fetchPopularMovies()
+        //fetchPopularMovies()
     }
 
     /**
@@ -51,12 +52,14 @@ class OverviewViewModel : ViewModel() {
                 val response = getPopularMovies.await()
 
                 _status.value = MovieApiStatus.SUCCESS
+                Log.d("RESPONSE", response.toString())
 
                 if(response.results.isNotEmpty()) {
                     _movies.postValue(response.results)
                 }
             } catch (e: Exception) {
                 _status.value = MovieApiStatus.ERROR
+                Log.e("ERROR", e.toString())
 
                 _movies.value = ArrayList()
             }

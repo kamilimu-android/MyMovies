@@ -1,4 +1,4 @@
-package com.kamilimuandoid.mymovies.overview
+package com.kamilimuandoid.mymovies.popular
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_overview.*
 class OverviewFragment : Fragment() {
 
     private lateinit var viewModel: OverviewViewModel
+    private lateinit var movieAdapter: MoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +25,7 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
+        movieAdapter = MoviesAdapter()
 
 
         viewModel.status.observe(viewLifecycleOwner, Observer {
@@ -34,7 +36,8 @@ class OverviewFragment : Fragment() {
                 OverviewViewModel.MovieApiStatus.SUCCESS -> {
                     viewModel.movies.observe(viewLifecycleOwner, Observer {
                         if (it.isNotEmpty()){
-                            tvPlaceHolder.text = "${it.size} Movie items fetched successfully!!"
+                            movieAdapter.updateList(it)
+                            recyclerview.adapter = movieAdapter
                         } else {
                             tvPlaceHolder.text = "No Movies found!!"
                         }
